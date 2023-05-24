@@ -1,0 +1,216 @@
+/** @format */
+
+/*  Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+   .ShopByCategory .item {
+      height: 100px;
+   }
+   .heroBannerText {
+      width: 94%;
+      margin: 34px 0 0 17px;
+   }
+   .heroBannerText h2 {
+      font-size: 3rem;
+      line-height: 50px;
+   }
+   .heroBanner {
+      height: auto;
+      padding-bottom: 20px;
+   }
+   .height500 {
+      height: auto;
+   }
+   .navWrapper .headerLogo {
+      width: 50%;
+      margin-left: 0;
+   }
+   .midSection {
+      width: 100%;
+   }
+   .navWrapper img.rightSection {
+      width: 23px !important;
+      height: auto !important;
+   }
+   .navWrapper .nav-item {
+      text-align: left;
+      padding-left: 15px;
+   }
+   .navWrapper .navbar-collapse.justify-content-end.px-5 {
+      padding: 0 10px 0 0px !important;
+   }
+   .wrapperWidth {
+      width: 100%;
+   }
+
+   .topArticlesWrapper div h2 {
+      font-size: 1.5em;
+   }
+   .topArticlesWrapper div span {
+      font-size: 1em;
+   }
+   .topArticlesWrapper .card-title {
+      font-size: 1em;
+   }
+   .smallImg {
+      width: 8%;
+   }
+   .mxWidth {
+      width: auto;
+      max-width: 152px;
+      margin: 0 auto;
+   }
+   .pad60 {
+      padding-left: 0px !important;
+   }
+
+   .navWrapper .navbar.header-scrolled {
+      padding: 20px 10px 10px !important;
+   }
+   .col-xl-12.col-12.col-sm-12.col-md-12.col-lg-12.px-0 {
+      padding: 10px 20px !important;
+   }
+   .fsEditWrapper h5.card-title {
+      font-size: 20px;
+   }
+   .wrapperWidth .px-0 {
+      padding: 0 10px;
+   }
+   .marTop50 {
+      margin-top: 80px;
+   }
+   .plpCardsWrapper .width315 {
+      width: 100%;
+   }
+   .ShopByCategory .owl-carousel.owl-loaded {
+      height: 200px;
+   }
+   .recipesMidSec .blockquote-footer {
+      width: 100%;
+   }
+   .recipesMidSec {
+      width: 100%;
+   }
+   .recipesMidSec p.biteTxt {
+      font-size: 1rem;
+   }
+
+   .recipesMidSec .card.float-start,
+   .recipesMidSec .card.float-end {
+      float: none !important;
+   }
+   .recipesMidSec .width77 {
+      width: 100%;
+   }
+   .page-content .form-v10-content {
+      margin: 0 20px 50px;
+   }
+   .width1215 {
+      width: 100%;
+      margin: 0 auto;
+   }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 578px) {
+   .navWrapper .nav-item {
+      text-align: left;
+      padding-left: 15px;
+   }
+   .headerLogo {
+      margin: 0;
+   }
+   .heroBannerText {
+      width: 80%;
+      margin: 20px 0 0 17px;
+   }
+   .heroBannerText h2 {
+      font-size: 2.5rem;
+      line-height: 50px;
+   }
+   .heroBanner {
+      height: auto;
+      padding-bottom: 20px;
+   }
+   .heroBannerText button {
+      width: 200px;
+      font-size: 14px;
+   }
+   .width1215 {
+      width: 100%;
+      margin: 0 auto;
+   }
+   .page-content .form-v10-content {
+      margin: 0 20px 50px;
+   }
+   .height500 {
+      height: auto;
+   }
+   .navWrapper img.rightSection {
+      width: 23px !important;
+      height: auto !important;
+   }
+   .recipesMidSec .width77 {
+      width: 100%;
+   }
+   /* .navWrapper .nav-item {
+      text-align: right;
+   } */
+   .navWrapper .navbar-collapse.justify-content-end.px-5 {
+      padding: 0 10px 0 0px !important;
+   }
+   .topArticlesWrapper div h2 {
+      font-size: 1.5em;
+   }
+   .topArticlesWrapper div span {
+      font-size: 1em;
+   }
+
+   .topArticlesWrapper .card-title {
+      font-size: 1em;
+   }
+   .ShopByCategory .owl-carousel.owl-loaded {
+      height: 220px;
+   }
+   .fsEditWrapper .firstCard {
+      height: 180px;
+   }
+   .smallImg {
+      width: 8%;
+   }
+   .shopByLsWrapper .card-img-top {
+      max-width: 152px;
+      margin: 0 auto;
+   }
+   .pad60,
+   .navWrapper .navbar.header-scrolled {
+      padding: 10px 40px 0 !important;
+   }
+   .fsEditWrapper h5.card-title {
+      font-size: 12px;
+   }
+   .marTop50 {
+      margin-top: 10px;
+   }
+   .fsEditIcon {
+      left: 0;
+   }
+   .plpCardsWrapper .width315 {
+      width: 46%;
+   }
+   .plpCardsWrapper .firstCard {
+      height: 140px;
+   }
+   .recipesMidSec .blockquote-footer {
+      width: 100%;
+   }
+   .recipesMidSec {
+      width: 100%;
+   }
+   .recipesMidSec .borderRadius {
+      width: 100%;
+      height: auto;
+   }
+
+   .recipesMidSec p.biteTxt {
+      font-size: 1rem;
+   }
+}
