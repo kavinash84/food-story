@@ -92,11 +92,33 @@ const App = () => {
       state: "",
    });
 
+   const [userDataCtx, setUserDataCtx] = useState({
+      "id": "",
+      "group_id": "",
+      "created_at": "",
+      "updated_at": "",
+      "created_in": "",
+      "dob": "",
+      "email": "",
+      "firstname": "",
+      "lastname": "",
+      "gender": 1,
+      "store_id": 1,
+      "website_id": 1,
+      "addresses": [],
+      "disable_auto_group_change": 0,
+      "extension_attributes": {
+          "is_subscribed": false
+      }
+  })
+
    return (
       <SomeContext.Provider
          value={{
             initialValues,
             setInitialValues,
+            userDataCtx,
+            setUserDataCtx
          }}>
          <RouterProvider router={router} />
       </SomeContext.Provider>

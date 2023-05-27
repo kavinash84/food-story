@@ -10,8 +10,8 @@ import { SomeContext } from "../../App";
 import { CgLayoutGrid } from "react-icons/cg";
 
 const UserProfile = () => {
-   const { initialValues, setInitialValues } = useContext(SomeContext);
-   console.log("userProfile", initialValues);
+   const { initialValues, setInitialValues,userDataCtx,setUserDataCtx } = useContext(SomeContext);
+   // console.log("userProfile", initialValues);
    // console.log("contezt", initialValues);
 
    const [profileData, setProfileData] = useState([]);
@@ -59,6 +59,16 @@ const UserProfile = () => {
       setDiabledInput(false);
    };
 
+   const handleChange = (e)=>{
+      setProfileData(prev=>{
+         let returnVal = {...prev,[e.target.name]:e.target.value}
+         return returnVal
+
+      }
+         )
+      
+   }
+
    // UPDATE EDIT PROFILE API
    async function editUpdateApi() {
       setIsLoading(true);
@@ -89,25 +99,7 @@ const UserProfile = () => {
             gender: parseInt(profileData.gender),
             dob: profileData.dob,
             website_id: profileData.website_id,
-            addresses: [
-               {
-                  defaultShipping: true,
-                  defaultBilling: true,
-                  firstname: profileData.addresses[0].firstname,
-                  lastname: profileData.addresses[0].lastname,
-                  region: {
-                     regionCode: profileData.addresses[0].region.region_code,
-                     region: profileData.addresses[0].region.region,
-                     regionId: profileData.addresses[0].region.region_id,
-                  },
-                  postcode: profileData.addresses[0].postcode,
-                  street: S,
 
-                  city: profileData.addresses[0].city,
-                  countryId: profileData.addresses[0].country_id,
-                  telephone: profileData.addresses[0].telephone,
-               },
-            ],
          },
          password: localStorage.getItem("user-password"),
       };
@@ -143,17 +135,47 @@ const UserProfile = () => {
 
    let token = localStorage.getItem("token");
 
-   // const handleDelete = (id) => {
-   //    axios
-   //       .delete(
-   //          `https://646335f74dca1a6613571fb4.mockapi.io/crud-fs/${id}`,
-   //          setIsLoading(true)
-   //       )
-   //       .then(() => {
-   //          // getAddressData();
-   //          setIsLoading(false);
-   //       });
-   // };
+   async function fetchUser (){
+      fetch("https://beta.foodstories.store/rest/default/V1/customers/me", {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json",
+         Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+   }).then((result) => {
+      result.json().then((resp) => {
+         // console.log("resp", resp.addresses[0].city);
+         console.log("get profile response", resp);
+         setUserDataCtx(resp);
+         setProfileData(resp);
+         console.log("get address response", resp);
+         if (resp.addresses && resp.addresses.length > 0) {
+            resp.addresses.map((obj) => {
+               obj.email = resp.email;
+            });
+         }
+         setGetAddData(resp.addresses);
+         setIsLoading(false);
+         // console.log("resp add data", resp);
+
+         setError(toast.error(resp.message));
+         setDisabledEditProfileBtn(true);
+      });
+   });
+}
+
+   const handleDelete = (id) => {
+      axios
+         .delete(
+            `https://beta.foodstories.store/rest/V1/customer/addresses?addressId=${id}`,
+            setIsLoading(true)
+         )
+         .then((result) => {
+               console.log("delete api success")
+               setIsLoading(false);
+               fetchUser()
+         });
+   };
 
    const setToLocalStorage = (
       firstname,
@@ -185,31 +207,8 @@ const UserProfile = () => {
       // console.log("token", localStorage.getItem("token"));
       setIsLoading(true);
 
-      fetch("https://beta.foodstories.store/rest/default/V1/customers/me", {
-         method: "GET",
-         headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-         },
-      }).then((result) => {
-         result.json().then((resp) => {
-            // console.log("resp", resp.addresses[0].city);
-            console.log("get profile response", resp);
-            setProfileData(resp);
-            console.log("get address response", resp);
-            if (resp.addresses && resp.addresses.length > 0) {
-               resp.addresses.map((obj) => {
-                  obj.email = resp.email;
-               });
-            }
-            setGetAddData(resp.addresses);
-            setIsLoading(false);
-            // console.log("resp add data", resp);
-
-            setError(toast.error(resp.message));
-            setDisabledEditProfileBtn(true);
-         });
-      });
+    
+   fetchUser()
    }, []);
    // GET PROFILE DATA API
    return (
@@ -338,7 +337,7 @@ const UserProfile = () => {
                                              : "NA"}
                                        </h5>
                                     )}
-                                    <p className='text-muted mb-2'>
+                                    {/* <p className='text-muted mb-2'>
                                        {profileData &&
                                           profileData.addresses &&
                                           profileData.addresses[0] &&
@@ -348,9 +347,9 @@ const UserProfile = () => {
                                           profileData.addresses &&
                                           profileData.addresses[0] &&
                                           profileData.addresses[0].city}
-                                    </p>
+                                    </p> */}
 
-                                    <p className='text-muted mb-4'>
+                                    {/* <p className='text-muted mb-4'>
                                        {profileData &&
                                           profileData.addresses &&
                                           profileData.addresses[0] &&
@@ -361,7 +360,7 @@ const UserProfile = () => {
                                           profileData.addresses &&
                                           profileData.addresses[0] &&
                                           profileData.addresses[0].postcode}
-                                    </p>
+                                    </p> */}
 
                                     <div className='d-flex justify-content-center mb-2'>
                                        {disabledEditProfileBtn && (
@@ -386,12 +385,8 @@ const UserProfile = () => {
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   firstname: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="firstname"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
@@ -414,12 +409,8 @@ const UserProfile = () => {
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   lastname: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="lastname"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
@@ -442,12 +433,8 @@ const UserProfile = () => {
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   email: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="email"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
@@ -470,12 +457,8 @@ const UserProfile = () => {
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   dob: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="dob"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
@@ -498,59 +481,48 @@ const UserProfile = () => {
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   gender: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="gender"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
                                                    ? "border-0"
                                                    : "null")
                                              }
-                                             value={
-                                                gender[profileData.gender]
-                                                   ? gender[profileData.gender]
-                                                   : ""
-                                             }
+                                             value={profileData.gender}
                                           />
                                        </div>
                                     </div>
                                     <hr />
-                                    <div className='row'>
+                                    {/* <div className='row'>
                                        <div className='col-sm-3'>
                                           <p className='mb-0'>Mobile</p>
                                        </div>
                                        <div className='col-sm-9'>
                                           <input
                                              disabled={diabledInput}
-                                             onChange={(e) => {
-                                                setProfileData({
-                                                   ...profileData,
-                                                   addresses: e.target.value,
-                                                });
-                                             }}
+                                             onChange={handleChange}
+                                             name="telephone"
                                              className={
                                                 " mb-0 " +
                                                 (inputBoxBorderNone
                                                    ? "border-0"
                                                    : "null")
                                              }
-                                             value={
-                                                profileData &&
-                                                profileData.addresses &&
-                                                profileData.addresses[0] &&
-                                                profileData.addresses[0]
-                                                   .telephone
-                                                   ? profileData.addresses[0]
-                                                        .telephone
-                                                   : ""
-                                             }
+                                             value={profileData.telephone}
+                                             // value={
+                                             //    profileData &&
+                                             //    profileData.addresses &&
+                                             //    profileData.addresses[0] &&
+                                             //    profileData.addresses[0]
+                                             //       .telephone
+                                             //       ? profileData.addresses[0]
+                                             //            .telephone
+                                             //       : ""
+                                             // }
                                           />
                                        </div>
-                                    </div>
+                                    </div> */}
                                     <hr />
                                     <div className='row'>
                                        <div className='col-sm-3'>
@@ -644,7 +616,7 @@ const UserProfile = () => {
                                                 </p>
                                                 <p className='text-muted mb-0'>
                                                    {getAddress &&
-                                                      getAddress.street[1]}
+                                                      getAddress.street}
                                                 </p>
                                              </p>
                                              <Link to='/updateAdd'>
@@ -655,7 +627,7 @@ const UserProfile = () => {
                                                          getAddress.lastname,
                                                          getAddress.telephone,
                                                          getAddress.city,
-                                                         getAddress.street[0],
+                                                         getAddress.street,
                                                          getAddress.id,
                                                          getAddress.region
                                                             .region,
@@ -670,14 +642,14 @@ const UserProfile = () => {
                                                    Edit
                                                 </button>
                                              </Link>
-                                             <a
+                                             <button
                                                 onClick={() =>
                                                    handleDelete(getAddress.id)
                                                 }
                                                 href='#'
                                                 className='btn btn-primary'>
                                                 Delete
-                                             </a>
+                                             </button>
                                           </div>
                                        </div>
                                     </div>

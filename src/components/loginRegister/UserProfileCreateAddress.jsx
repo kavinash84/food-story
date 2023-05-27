@@ -7,6 +7,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SomeContext } from "../../App";
+import { toast } from "react-toastify";
 
 const initialValues = {
    firstname: "",
@@ -16,59 +17,46 @@ const initialValues = {
    flat: "",
    city: "",
    state: "",
+   email:""
    // id: "",
 };
 const UserProfileCreateAddress = (props) => {
-   // const { initialValues, setInitialValues } = useContext(SomeContext);
-   // console.log("create conterxt", initialValues);
+   // const { initialValues, setInitialValues } = 
+   const {userDataCtx} = useContext(SomeContext);
 
    const [isLoading, setIsLoading] = useState(false);
    const [closeModal, setCloseModal] = useState(false);
+   const [successMsg, setSuccessMsg] = useState("");
+   const [error, setError] = useState("");
+   
    const history = useNavigate();
 
-   const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
+  
+
+   const { values, errors, handleBlur, handleChange,handleSubmit, touched } =
       useFormik({
          initialValues: initialValues,
          validationSchema: UserAddressSchema,
-         onSubmit: async (values) => {
+         onSubmit:  async(values) => {
             console.log("values", values);
-            setIsLoading(true);
-   
+            setIsLoading(true);   
             const payload = {
-               customer: {
-                  email: values.email,
-                  firstname: values.firstname,
-                  lastname: values.lastname,
-                  gender: parseInt(values.gender),
-                  dob: values.dob,
-                  website_id: values.website_id,
-                  addresses: [
-                     {
-                        defaultShipping: true,
-                        defaultBilling: true,
-                        firstname: values.firstname,
-                        lastname: values.lastname,
-                        region: {
-                           regionCode: values.region.region_code,
-                           region: values.region.region,
-                           regionId: values.region.region_id,
-                        },
-                        postcode: values.postcode,
-                        street: values.street,
-   
-                        city: values.city,
-                        countryId: values.country_id,
-                        telephone: values.telephone,
-                     },
-                  ],
-               },
-               password: localStorage.getItem("user-password"),
+              address: {
+                customer_id: userDataCtx.id,
+                firstname: values.firstname,
+                lastname: values.lastname,
+                street: [values.flat],
+                telephone: values.phone,
+                postcode: values.pincode,
+                city: values.city,
+                country_id: "IN",
+              },
             };
    
             console.log("payload", payload);
    
             let result = await fetch(
-               "https://beta.foodstories.store/rest/V1/customers",
+               "https://beta.foodstories.store/rest/V1/customer/addresses",
                {
                   method: "POST",
                   headers: {
@@ -83,9 +71,9 @@ const UserProfileCreateAddress = (props) => {
             if (result.status === 200) {
                setSuccessMsg(toast.success("Address Created Successfully"));
                localStorage.setItem("register-info", JSON.stringify(result));
-               history("/login");
+               // history("/login");
             } else {
-               console.log("result", result);
+               console.log("result", result.json());
                setError(toast.error(result.message));
             }
             result = await result.json();
@@ -130,7 +118,7 @@ const UserProfileCreateAddress = (props) => {
                               id='firstname'
                               className='input-text'
                               placeholder='First Name'
-                              required=''
+                              required
                               fdprocessedid='kgr72'
                               autoComplete='off'
                               onChange={handleChange}
@@ -148,7 +136,7 @@ const UserProfileCreateAddress = (props) => {
                               id='lastname'
                               className='input-text'
                               placeholder='Last Name'
-                              required=''
+                              required
                               fdprocessedid='t0xc0q'
                               autoComplete='off'
                               onChange={handleChange}
@@ -168,7 +156,7 @@ const UserProfileCreateAddress = (props) => {
                            className='phone'
                            id='phone'
                            placeholder='Phone Number'
-                           required=''
+                           required
                            fdprocessedid='j9u7n'
                            autoComplete='off'
                            onChange={handleChange}
@@ -181,12 +169,31 @@ const UserProfileCreateAddress = (props) => {
                      </div>
                      <div className='form-row'>
                         <input
+                           type='text'
+                           name='email'
+                           id='email'
+                           className='input-text'
+                           required=''
+                           pattern='[^@]+@[^@]+.[a-zA-Z]{2,6}'
+                           placeholder='Your Email'
+                           autoComplete='off'
+                           onChange={handleChange}
+                           onBlur={handleBlur}
+                           value={values.email}
+                        />
+                        {errors.email && touched.email ? (
+                           <p className='form-errors'>{errors.email}</p>
+                        ) : null}
+
+                        </div>
+                     <div className='form-row'>
+                        <input
                            type='pincode'
                            name='pincode'
                            id='pincode'
                            className='input-text'
                            placeholder='Pincode'
-                           required=''
+                           required
                            fdprocessedid='t0xc0aq'
                            autoComplete='off'
                            onChange={handleChange}
@@ -204,7 +211,7 @@ const UserProfileCreateAddress = (props) => {
                            id='flat'
                            className='input-text'
                            placeholder='Flat, House no., Building, Company, Apartment'
-                           required=''
+                           required
                            fdprocessedid='t0xc0aq'
                            autoComplete='off'
                            onChange={handleChange}
@@ -223,7 +230,7 @@ const UserProfileCreateAddress = (props) => {
                            id='city'
                            className='input-text'
                            placeholder='Town/City'
-                           required=''
+                           required
                            fdprocessedid='t0xc0aq'
                            autoComplete='off'
                            onChange={handleChange}
@@ -241,7 +248,7 @@ const UserProfileCreateAddress = (props) => {
                            id='state'
                            className='input-text'
                            placeholder='State'
-                           required=''
+                           // required=''
                            fdprocessedid='t0xc0aq'
                            autoComplete='off'
                            onChange={handleChange}
@@ -272,7 +279,7 @@ const UserProfileCreateAddress = (props) => {
                            to='/profile'
                            style={{ float: "left", display: "block" }}>
                            <button
-                              type='submit'
+                              // type='reset'
                               name='register'
                               className='btn btn-primary mx-auto my-3 d-block'>
                               Back

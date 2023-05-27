@@ -10,7 +10,7 @@ import { SomeContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
 
 const UserProfileUpdateAddress = (props) => {
-   const { initialValues, setInitialValues } = useContext(SomeContext);
+   const { initialValues, setInitialValues,userDataCtx } = useContext(SomeContext);
    console.log("vipin", initialValues);
    const [error, setError] = useState("");
 
@@ -33,24 +33,25 @@ const UserProfileUpdateAddress = (props) => {
       onSubmit: async (values) => {
          console.log("values", values);
 
-         const payload = [
-            {
-               city: values.city,
-               state: values.state,
-               phone: values.phone,
-               email: values.email,
-               pincode: values.pincode,
-               firstName: values.firstname,
-               lastName: values.lastname,
-               id: values.id,
-               flat: values.flat,
+         const payload = {
+            address: {
+               id:initialValues.id,
+              customer_id: userDataCtx.id,
+              firstname: values.firstname,
+              lastname: values.lastname,
+              street: [values.flat],
+              telephone: values.phone,
+              postcode: values.pincode,
+              city: values.city,
+            //   state:values.state,
+              country_id: "IN",
             },
-         ];
+          };
          console.log("payload", payload);
          setIsLoading(true),
             await axios
-               .put(
-                  "https://beta.foodstories.store/rest/default/V1/customers/me",
+               .post(
+                  "https://beta.foodstories.store/rest/V1/customer/addresses",
                   payload,
                   {
                      headers: {
