@@ -34,19 +34,24 @@ const UserProfileUpdateAddress = (props) => {
          console.log("values", values);
 
          const payload = {
-            address: {
-               id:initialValues.id,
-              customer_id: userDataCtx.id,
-              firstname: values.firstname,
-              lastname: values.lastname,
-              street: [values.flat],
-              telephone: values.phone,
-              postcode: values.pincode,
-              city: values.city,
-            //   state:values.state,
-              country_id: "IN",
-            },
-          };
+           address: {
+             id: initialValues.id,
+             customer_id: userDataCtx.id,
+             firstname: values.firstname,
+             lastname: values.lastname,
+             street: [values.flat],
+             telephone: values.phone,
+             postcode: values.pincode,
+             city: values.city,
+             //   state:values.state,
+             country_id: "IN",
+             region: {
+               regionCode: "",
+               region: values.state,
+               regionId: 589,
+             },
+           },
+         };
          console.log("payload", payload);
          setIsLoading(true),
             await axios

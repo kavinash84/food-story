@@ -479,7 +479,7 @@ const UserProfile = () => {
                                           <p className='mb-0'>Gender</p>
                                        </div>
                                        <div className='col-sm-9'>
-                                          <input
+                                          {/* <input
                                              disabled={diabledInput}
                                              onChange={handleChange}
                                              name="gender"
@@ -490,7 +490,11 @@ const UserProfile = () => {
                                                    : "null")
                                              }
                                              value={profileData.gender}
-                                          />
+                                          /> */}
+                                          <select name="gender" value={profileData.gender}  onChange={handleChange} >
+                                             <option value="1">Male</option>
+                                             <option value="2">Female</option>
+                                          </select>
                                        </div>
                                     </div>
                                     <hr />
@@ -627,7 +631,7 @@ const UserProfile = () => {
                                                          getAddress.lastname,
                                                          getAddress.telephone,
                                                          getAddress.city,
-                                                         getAddress.street,
+                                                         getAddress.street.toString(),
                                                          getAddress.id,
                                                          getAddress.region
                                                             .region,
