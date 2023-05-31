@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start":"vite --host",
+    "start": "vite --host",
     "dev": " vite --port 5173",
     "build": "vite build",
     "preview": "vite preview",
@@ -20,6 +20,7 @@
     "axios": "^1.4.0",
     "bootstrap-icons": "^1.10.3",
     "formik": "^2.2.9",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",

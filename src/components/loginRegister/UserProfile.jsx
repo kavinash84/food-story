@@ -186,7 +186,8 @@ const UserProfile = () => {
       id,
       state,
       postcode,
-      email
+      email,
+      region
    ) => {
       setInitialValues((prev) => {
          (prev.firstname = firstname),
@@ -198,6 +199,7 @@ const UserProfile = () => {
             (prev.state = state),
             (prev.pincode = postcode),
             (prev.email = email);
+            (prev.region = region);
          return prev;
       });
    };
@@ -636,7 +638,8 @@ const UserProfile = () => {
                                                          getAddress.region
                                                             .region,
                                                          getAddress.postcode,
-                                                         getAddress.email
+                                                         getAddress.email,
+                                                         getAddress.region
                                                       )
                                                    }
                                                    type='button'

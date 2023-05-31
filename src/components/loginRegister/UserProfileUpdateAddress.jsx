@@ -9,6 +9,8 @@ import axios from "axios";
 import { SomeContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
 
+let isStateLoading=false;
+
 const UserProfileUpdateAddress = (props) => {
    const { initialValues, setInitialValues,userDataCtx } = useContext(SomeContext);
    console.log("vipin", initialValues);
@@ -24,6 +26,7 @@ const UserProfileUpdateAddress = (props) => {
       handleBlur,
       handleChange,
       handleSubmit,
+      setFieldValue,setFieldError,
       touched,
       resetForm,
    } = useFormik({
@@ -77,6 +80,35 @@ const UserProfileUpdateAddress = (props) => {
                });
       },
    });
+
+
+   const handleStateChange = async(e)=>{
+      if(isStateLoading){
+         return
+      }
+      isStateLoading=true;
+         const {data} = await axios({
+           url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
+           method: "post",
+           data: {
+             parameters: {
+               country_code: "IN",
+               region_name: e.target.value,
+             },
+           },
+         });
+   
+         isStateLoading=false;
+         if(data[0]?.region_id){
+            setFieldValue("region.region",data[0]?.name)
+            setFieldValue("region.region_code",data[0]?.code)
+            setFieldValue("region.region_id",data[0]?.region_id)
+         }else{
+            setFieldError("region.region","Please enter valid state");
+         }
+      
+   }
+
 
    return (
       <div className='container w-75'>
@@ -227,18 +259,21 @@ const UserProfileUpdateAddress = (props) => {
                      <div className='form-row'>
                         <input
                            type='state'
-                           name='state'
+                           name='region.region'
                            id='state'
                            className='input-text'
                            placeholder='State'
                            required=''
                            autoComplete='off'
-                           onChange={handleChange}
+                           onChange={(e)=>{
+                              handleStateChange(e);
+                              handleChange(e)
+                           }}
                            onBlur={handleBlur}
-                           value={values.state}
+                           value={values.region.region}
                         />
-                        {errors.state && touched.state ? (
-                           <p className='form-errors'>{errors.state}</p>
+                         {errors?.region?.region && touched?.region?.region ? (
+                           <p className='form-errors'>{errors?.region?.region}</p>
                         ) : null}
                      </div>
                      {isLoading && (

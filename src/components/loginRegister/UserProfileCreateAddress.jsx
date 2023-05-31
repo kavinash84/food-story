@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SomeContext } from "../../App";
 import { toast } from "react-toastify";
+import {throttle} from 'lodash';
 
 const initialValues = {
    firstname: "",
@@ -16,10 +17,16 @@ const initialValues = {
    pincode: "",
    flat: "",
    city: "",
-   state: "",
-   email:""
+   email:"",
+   region:{
+      region:"",
+      regionCode:"",
+      regionId:""
+   }
    // id: "",
 };
+let isStateLoading=false;
+
 const UserProfileCreateAddress = (props) => {
    // const { initialValues, setInitialValues } = 
    const {userDataCtx} = useContext(SomeContext);
@@ -31,14 +38,11 @@ const UserProfileCreateAddress = (props) => {
    
    const history = useNavigate();
 
-  
-
-   const { values, errors, handleBlur, handleChange,handleSubmit, touched } =
+   const { values, errors, handleBlur, handleChange,handleSubmit,setFieldValue,setFieldError, touched } =
       useFormik({
          initialValues: initialValues,
          validationSchema: UserAddressSchema,
          onSubmit:  async(values) => {
-            console.log("values", values);
             setIsLoading(true);   
             const payload = {
               address: {
@@ -50,11 +54,14 @@ const UserProfileCreateAddress = (props) => {
                 postcode: values.pincode,
                 city: values.city,
                 country_id: "IN",
+                region: {
+                  regionCode: values.region.regionCode,
+                  region: values.region.region,
+                  regionId:  values.region.regionId,
+                },
               },
             };
-   
-            console.log("payload", payload);
-   
+      
             let result = await fetch(
                "https://beta.foodstories.store/rest/V1/customer/addresses",
                {
@@ -67,7 +74,7 @@ const UserProfileCreateAddress = (props) => {
             ).catch((error) => {
                console.log("error", error.message);
             });
-            console.log("create address res", JSON.stringify(result));
+
             if (result.status === 200) {
                setSuccessMsg(toast.success("Address Created Successfully"));
                localStorage.setItem("register-info", JSON.stringify(result));
@@ -88,6 +95,34 @@ const UserProfileCreateAddress = (props) => {
             setError(toast.error(result.message));
          },
       });
+
+      const handleStateChange = async(e)=>{
+         if(isStateLoading){
+            return
+         }
+         isStateLoading=true;
+            const {data} = await axios({
+              url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
+              method: "post",
+              data: {
+                parameters: {
+                  country_code: "IN",
+                  region_name: e.target.value,
+                },
+              },
+            });
+      
+            isStateLoading=false;
+            if(data[0]?.region_id){
+               setFieldValue("region.region",data[0]?.name)
+               setFieldValue("region.regionCode",data[0]?.code)
+               setFieldValue("region.regionId",data[0]?.region_id)
+            }else{
+               setFieldError("region.region","Please enter valid state");
+            }
+         
+      }
+
 
    return (
       <div className='container w-75'>
@@ -244,19 +279,22 @@ const UserProfileCreateAddress = (props) => {
                      <div className='form-row'>
                         <input
                            type='state'
-                           name='state'
+                           name='region.region'
                            id='state'
                            className='input-text'
                            placeholder='State'
                            // required=''
                            fdprocessedid='t0xc0aq'
                            autoComplete='off'
-                           onChange={handleChange}
+                           onChange={(e)=>{
+                              handleStateChange(e);
+                              handleChange(e)
+                           }}
                            onBlur={handleBlur}
-                           value={values.state}
+                           value={values.region.region}
                         />
-                        {errors.state && touched.state ? (
-                           <p className='form-errors'>{errors.state}</p>
+                        {errors?.region?.region && touched?.region?.region ? (
+                           <p className='form-errors'>{errors?.region?.region}</p>
                         ) : null}
                      </div>
                      {isLoading && (

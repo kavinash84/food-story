@@ -1,5 +1,6 @@
 /** @format */
 
+import axios from "axios";
 import * as Yup from "yup";
 
 let EMAIL_REGX =
@@ -47,9 +48,32 @@ export const UserAddressSchema = Yup.object({
       .matches(/^[A-Za-z ]*$/, "Please enter valid city")
       .required("Please enter the city name "),
 
-   state: Yup.string()
+   region: Yup.object({
+      region:Yup.string()
       .min(3)
       .max(100)
       .matches(/^[A-Za-z ]*$/, "Please enter valid state")
-      .required("Please enter the state name "),
+      .required("Please enter the state name ")
+      // .test('checkvalidstate', 'Please enter valid state name', async value =>{
+      //    const {data} = await axios({
+      //       url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
+      //       method: "post",
+      //       data: {
+      //         parameters: {
+      //           country_code: "IN",
+      //           region_name: value,
+      //         },
+      //       },
+      //     })
+
+      //     if(data[0]?.region_id){
+      //       return true
+      //    }else{
+      //       setFieldError("region.region","Please enter valid state");
+      //       return false
+      //    }
+
+      // }),
+   })
+   
 });
