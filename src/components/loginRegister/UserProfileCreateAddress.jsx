@@ -10,6 +10,17 @@ import { SomeContext } from "../../App";
 import { toast } from "react-toastify";
 import {throttle} from 'lodash';
 
+const loaderStyle = {
+   position: "absolute",
+   left: "0",
+   top: "60%",
+   right: "0",
+   bottom: "0",
+   textAlign: "center",
+   margin: "0 auto",
+   zIndex: "999",
+};
+
 const initialValues = {
    firstname: "",
    lastname: "",
@@ -35,6 +46,9 @@ const UserProfileCreateAddress = (props) => {
    const [closeModal, setCloseModal] = useState(false);
    const [successMsg, setSuccessMsg] = useState("");
    const [error, setError] = useState("");
+   const [isValidState, setIsValidState] = useState(true);
+   const [stateErrorMessage, setStateErrorMessage] = useState("");
+
    
    const history = useNavigate();
 
@@ -78,7 +92,7 @@ const UserProfileCreateAddress = (props) => {
             if (result.status === 200) {
                setSuccessMsg(toast.success("Address Created Successfully"));
                localStorage.setItem("register-info", JSON.stringify(result));
-               // history("/login");
+               history("/profile");
             } else {
                console.log("result", result.json());
                setError(toast.error(result.message));
@@ -101,6 +115,7 @@ const UserProfileCreateAddress = (props) => {
             return
          }
          isStateLoading=true;
+         setIsLoading(true)
             const {data} = await axios({
               url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
               method: "post",
@@ -111,20 +126,34 @@ const UserProfileCreateAddress = (props) => {
                 },
               },
             });
-      
+            setIsLoading(false)
             isStateLoading=false;
             if(data[0]?.region_id){
                setFieldValue("region.region",data[0]?.name)
                setFieldValue("region.regionCode",data[0]?.code)
-               setFieldValue("region.regionId",data[0]?.region_id)
+               setFieldValue("region.regionId",data[0]?.region_id);
+               setIsValidState(true)
             }else{
                setFieldError("region.region","Please enter valid state");
+               setIsValidState(false);
+               setStateErrorMessage("Please enter valid state")
             }
          
       }
 
 
    return (
+      <>
+      {isLoading && (
+            <div className='d-flex justify-content-center' style={loaderStyle}>
+               <div
+                  className='spinner-border spinner-border-lg text-success'
+                  style={{ width: "4rem", height: "4rem" }}
+                  role='status'>
+                  <span className='visually-hidden '>Loading...</span>
+               </div>
+            </div>
+         )}
       <div className='container w-75'>
          <h5
             className='mt-5 mb-3'
@@ -293,21 +322,11 @@ const UserProfileCreateAddress = (props) => {
                            onBlur={handleBlur}
                            value={values.region.region}
                         />
-                        {errors?.region?.region && touched?.region?.region ? (
-                           <p className='form-errors'>{errors?.region?.region}</p>
+                        {(errors?.region?.region||!isValidState) && touched?.region?.region ? (
+                           <p className='form-errors'>{errors?.region?.region||stateErrorMessage}</p>
                         ) : null}
                      </div>
-                     {isLoading && (
-                        <div className='d-flex justify-content-center'>
-                           <div
-                              className='spinner-border text-success'
-                              role='status'>
-                              <span className='visually-hidden '>
-                                 Loading...
-                              </span>
-                           </div>
-                        </div>
-                     )}
+                     
                      <br />
 
                      <div
@@ -326,6 +345,7 @@ const UserProfileCreateAddress = (props) => {
                         <button
                            type='submit'
                            style={{ float: "left", display: "block" }}
+                           disabled={(isLoading||!isValidState)?true:false}
                            name='register'
                            className='btn btn-primary mx-auto my-3 d-block ms-2'>
                            Save changes
@@ -336,6 +356,7 @@ const UserProfileCreateAddress = (props) => {
             </div>
          </div>
       </div>
+      </>
    );
 };
 

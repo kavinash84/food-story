@@ -9,30 +9,32 @@ import axios from "axios";
 import { SomeContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
 
+const loaderStyle = {
+   position: "absolute",
+   left: "0",
+   top: "60%",
+   right: "0",
+   bottom: "0",
+   textAlign: "center",
+   margin: "0 auto",
+   zIndex: "999",
+};
 let isStateLoading=false;
 
 const UserProfileUpdateAddress = (props) => {
    const { initialValues, setInitialValues,userDataCtx } = useContext(SomeContext);
-   console.log("vipin", initialValues);
    const [error, setError] = useState("");
 
    const [isLoading, setIsLoading] = useState(false);
    const [items, setItems] = useState([]);
    const history = useNavigate();
+   const [isValidState, setIsValidState] = useState(true);
+   const [stateErrorMessage, setStateErrorMessage] = useState("");
 
-   const {
-      values,
-      errors,
-      handleBlur,
-      handleChange,
-      handleSubmit,
-      setFieldValue,setFieldError,
-      touched,
-      resetForm,
-   } = useFormik({
+  
+   const formik = useFormik({
       initialValues: initialValues,
       validationSchema: UserAddressSchema,
-
       onSubmit: async (values) => {
          console.log("values", values);
 
@@ -49,9 +51,9 @@ const UserProfileUpdateAddress = (props) => {
              //   state:values.state,
              country_id: "IN",
              region: {
-               regionCode: "",
-               region: values.state,
-               regionId: 589,
+               regionCode: values.region.regionCode,
+               region: values.region.region,
+               regionId: values.region.regionId,
              },
            },
          };
@@ -81,11 +83,23 @@ const UserProfileUpdateAddress = (props) => {
       },
    });
 
+   const {
+      values,
+      errors,
+      handleBlur,
+      handleChange,
+      handleSubmit,
+      setFieldValue,
+      touched,
+      resetForm,
+   } = formik;
+
 
    const handleStateChange = async(e)=>{
       if(isStateLoading){
          return
       }
+      setIsLoading(true)
       isStateLoading=true;
          const {data} = await axios({
            url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
@@ -98,19 +112,36 @@ const UserProfileUpdateAddress = (props) => {
            },
          });
    
+         setIsLoading(false)
          isStateLoading=false;
          if(data[0]?.region_id){
             setFieldValue("region.region",data[0]?.name)
-            setFieldValue("region.region_code",data[0]?.code)
-            setFieldValue("region.region_id",data[0]?.region_id)
+            setFieldValue("region.regionCode",data[0]?.code)
+            setFieldValue("region.regionId",data[0]?.region_id);
+            setIsValidState(true)
          }else{
-            setFieldError("region.region","Please enter valid state");
+            formik.setFieldError("region.region","Please enter valid state");
+            formik.setFieldTouched("region.region",true);
+            setIsValidState(false);
+            setStateErrorMessage("Please enter valid state")
          }
       
    }
 
+   console.log(formik)
 
    return (
+      <>
+      {isLoading && (
+            <div className='d-flex justify-content-center' style={loaderStyle}>
+               <div
+                  className='spinner-border spinner-border-lg text-success'
+                  style={{ width: "4rem", height: "4rem" }}
+                  role='status'>
+                  <span className='visually-hidden '>Loading...</span>
+               </div>
+            </div>
+         )}
       <div className='container w-75'>
          <h5
             className='mt-5 mb-3'
@@ -272,21 +303,11 @@ const UserProfileUpdateAddress = (props) => {
                            onBlur={handleBlur}
                            value={values.region.region}
                         />
-                         {errors?.region?.region && touched?.region?.region ? (
-                           <p className='form-errors'>{errors?.region?.region}</p>
+                         {(errors?.region?.region||!isValidState) && touched?.region?.region ? (
+                           <p className='form-errors'>{errors?.region?.region||stateErrorMessage}</p>
                         ) : null}
                      </div>
-                     {isLoading && (
-                        <div className='d-flex justify-content-center'>
-                           <div
-                              className='spinner-border text-success'
-                              role='status'>
-                              <span className='visually-hidden '>
-                                 Loading...
-                              </span>
-                           </div>
-                        </div>
-                     )}
+                     
                      <br />
                      <div
                         className=' mx-auto'
@@ -303,6 +324,7 @@ const UserProfileUpdateAddress = (props) => {
                         </Link>
                         <button
                            type='submit'
+                           disabled={(isLoading||!isValidState)?true:false}
                            style={{ float: "left", display: "block" }}
                            name='register'
                            className='btn btn-primary mx-auto my-3 d-block ms-2'>
@@ -315,6 +337,7 @@ const UserProfileUpdateAddress = (props) => {
          </div>
          <ToastContainer />
       </div>
+      </>
    );
 };
 

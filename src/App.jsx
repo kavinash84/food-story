@@ -90,6 +90,11 @@ const App = () => {
       flat: "",
       city: "",
       state: "",
+      region: {
+         regionCode: "",
+         region: "",
+         regionId: "",
+       },
    });
 
    const [userDataCtx, setUserDataCtx] = useState({
