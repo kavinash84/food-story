@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SomeContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
+import { debounceUtil } from "../utilis/helper";
 
 const loaderStyle = {
    position: "absolute",
@@ -95,23 +96,19 @@ const UserProfileUpdateAddress = (props) => {
    } = formik;
 
 
-   const handleStateChange = async(e)=>{
-      if(isStateLoading){
-         return
-      }
+   const fetchStateInfo = async(state=initialValues.region.region)=>{
+
       setIsLoading(true)
-      isStateLoading=true;
          const {data} = await axios({
            url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
            method: "post",
            data: {
              parameters: {
                country_code: "IN",
-               region_name: e.target.value,
+               region_name: state,
              },
            },
          });
-   
          setIsLoading(false)
          isStateLoading=false;
          if(data[0]?.region_id){
@@ -120,15 +117,21 @@ const UserProfileUpdateAddress = (props) => {
             setFieldValue("region.regionId",data[0]?.region_id);
             setIsValidState(true)
          }else{
-            formik.setFieldError("region.region","Please enter valid state");
-            formik.setFieldTouched("region.region",true);
+            setFieldError("region.region","Please enter valid state");
             setIsValidState(false);
             setStateErrorMessage("Please enter valid state")
          }
       
    }
 
-   console.log(formik)
+   const handleStateChange = async(e)=>{
+      setFieldValue(e.target.name,e.target.value);
+      debounceUtil(()=>{
+         fetchStateInfo(e.target.value)
+      },800)
+
+   }
+
 
    return (
       <>

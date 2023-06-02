@@ -8,7 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SomeContext } from "../../App";
 import { toast } from "react-toastify";
-import {throttle} from 'lodash';
+import {throttle,debounce} from 'lodash';
+import { debounceUtil } from "../utilis/helper";
 
 const loaderStyle = {
    position: "absolute",
@@ -110,11 +111,8 @@ const UserProfileCreateAddress = (props) => {
          },
       });
 
-      const handleStateChange = async(e)=>{
-         if(isStateLoading){
-            return
-         }
-         isStateLoading=true;
+      const fetchStateInfo = async(state=initialValues.region.region)=>{
+
          setIsLoading(true)
             const {data} = await axios({
               url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
@@ -122,7 +120,7 @@ const UserProfileCreateAddress = (props) => {
               data: {
                 parameters: {
                   country_code: "IN",
-                  region_name: e.target.value,
+                  region_name: state,
                 },
               },
             });
@@ -139,6 +137,14 @@ const UserProfileCreateAddress = (props) => {
                setStateErrorMessage("Please enter valid state")
             }
          
+      }
+
+      const handleStateChange = async(e)=>{
+         setFieldValue(e.target.name,e.target.value);
+         debounceUtil(()=>{
+            fetchStateInfo(e.target.value)
+         },800)
+
       }
 
 
@@ -317,7 +323,7 @@ const UserProfileCreateAddress = (props) => {
                            autoComplete='off'
                            onChange={(e)=>{
                               handleStateChange(e);
-                              handleChange(e)
+                              // handleChange(e)
                            }}
                            onBlur={handleBlur}
                            value={values.region.region}
