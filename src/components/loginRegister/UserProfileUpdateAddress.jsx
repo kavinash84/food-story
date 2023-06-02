@@ -307,9 +307,11 @@ const UserProfileUpdateAddress = (props) => {
                            onBlur={handleBlur}
                            value={values.region.region}
                         />
-                         {(errors?.region?.region||!isValidState) && touched?.region?.region ? (
+                         {
+                           isValidState?
+                         (errors?.region?.region) && touched?.region?.region ? (
                            <p className='form-errors'>{errors?.region?.region||stateErrorMessage}</p>
-                        ) : null}
+                        ) : null:<p className='form-errors'>{stateErrorMessage}</p>}
                      </div>
                      
                      <br />
