@@ -1,10 +1,16 @@
 /** @format */
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { Link,useNavigate } from "react-router-dom";
+
+import { setCurrentAddress } from "../../redux/slices/meSlice";
 
 const UserAddress = () => {
-   return (
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const addressList = useSelector(state=>state.me.addressList);
+return (
       <div>
          <div className='row'>
             <div className='tab-content' id='pills-tabContent'>
@@ -30,66 +36,59 @@ const UserAddress = () => {
                         </div>
                      </div>
 
-                     {/* {getAddData &&
-                        getAddData.map((getAddress) => {
-                           {
-                              console.log("getAddress", getAddress.id);
-                           }
-                           return (
+                     {addressList.map((getAddress) => (
                               <div
-                                 className='col-sm-3 mb-4'
-                                 key={getAddress && getAddress.id}>
-                                 <div className='card'>
-                                    <div className='card-body'>
-                                       <h5 className='card-title '>
-                                          {getAddress &&
-                                             getAddress[0].firstName}
-                                       </h5>
-                                       <p className='card-text'>
-                                          <p className='text-muted mb-0'>
-                                             {getAddress && getAddress[0].phone}
-                                          </p>
-                                          <p className='text-muted mb-0'>
-                                             {getAddress && getAddress[0].state}
-                                          </p>
-                                       </p>
-
-                                       <Link to='/updateAdd'>
-                                          <button
-                                             onClick={() =>
-                                                setToLocalStorage(
-                                                   getAddress[0].firstName,
-                                                   getAddress[0].lastName,
-                                                   getAddress[0].phone,
-                                                   getAddress[0].city,
-                                                   getAddress[0].flat,
-                                                   getAddress.id,
-                                                   getAddress[0].landmark,
-                                                   getAddress[0].state,
-                                                   getAddress[0].pincode
-                                                )
-                                             }
-                                             type='button'
-                                             className='btn btn-primary me-2'
-                                             data-bs-toggle='modal'
-                                             data-bs-target='#exampleModal'>
-                                             Edit
-                                          </button>
-                                       </Link>
-
-                                       <a
-                                          onClick={() =>
-                                             handleDelete(getAddress.id)
-                                          }
-                                          href='#'
-                                          className='btn btn-primary'>
-                                          Delete
-                                       </a>
+                                       className='col-sm-3 mb-4'
+                                       key={getAddress.id}>
+                                       <div className='card'>
+                                          <div className='card-body'>
+                                             <h5 className='card-title '>
+                                                {getAddress &&
+                                                   getAddress.firstname}
+                                                &nbsp;
+                                                {getAddress &&
+                                                   getAddress.lastname}
+                                             </h5>
+                                             <p className='card-text'>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.telephone}
+                                                </p>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.email}
+                                                </p>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.street}
+                                                </p>
+                                             </p>
+                                             {/* <Link to='/updateAdd'> */}
+                                                <button
+                                                   onClick={() =>{
+                                                      dispatch(setCurrentAddress(getAddress));
+                                                      navigate('/updateAdd');
+                                                   }}
+                                                   type='button'
+                                                   className='btn btn-primary me-2'
+                                                   data-bs-toggle='modal'
+                                                   data-bs-target='#exampleModal'>
+                                                   Edit
+                                                </button>
+                                             {/* </Link> */}
+                                             <button
+                                             type="button"
+                                                onClick={() =>{
+                                                   // handleDelete(getAddress.id)
+                                                }}
+                                                href='#'
+                                                className='btn btn-primary'>
+                                                Delete
+                                             </button>
+                                          </div>
+                                       </div>
                                     </div>
-                                 </div>
-                              </div>
-                           );
-                        })} */}
+                           ))}
                   </div>
                </div>
                <div
@@ -103,6 +102,6 @@ const UserAddress = () => {
          </div>
       </div>
    );
-};
 
+   };
 export default UserAddress;

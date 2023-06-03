@@ -2,10 +2,10 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+
 import headerLogo from "../../assets/nav/fs-logo-header.png";
 
-const PageNotFound = () => {
-   return (
+const PageNotFound = () => (
       <>
          {/* <img className='img-fluid headerLogo' src={headerLogo} /> */}
          <div className='d-flex align-items-center justify-content-center vh-100'>
@@ -33,6 +33,5 @@ const PageNotFound = () => {
          </div>
       </>
    );
-};
 
 export default PageNotFound;

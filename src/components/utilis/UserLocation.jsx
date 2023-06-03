@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 const UserLocation = (props) => {
    const [locationData, setLocationData] = useState(null);
@@ -10,13 +10,12 @@ const UserLocation = (props) => {
    );
    const [searchCity, setSearchCity] = useState(localStorage.getItem("city"));
 
-   console.log(location, location);
    const [isEditing, setIsEditing] = useState(false);
 
    useEffect(() => {
       const fetchWeatherData = async () => {
          try {
-            let lat, lon, city;
+            let lat; let lon; let city;
             if (location && location.trim() !== "") {
                // Use the stored location if it exists and is not empty
                const response = await axios.get(
@@ -45,7 +44,6 @@ const UserLocation = (props) => {
                      response.data.results[0].components.city
                   )
                );
-               console.log("object", response.data.results[0].components.city);
             }
             const response = await axios.get(
                // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=fa159c10afad1b327c67736381f2ca89`
@@ -100,7 +98,6 @@ const UserLocation = (props) => {
                   // optional event handlers:
                   {
                      onSelect: function handleSelect(params) {
-                        console.log("Selected Item is", params.item);
                         localStorage.setItem("city", params.item.formatted);
                         setSearchCity(params.item.formatted);
                         const latlng = [
@@ -108,11 +105,9 @@ const UserLocation = (props) => {
                            params.item.geometry.lng,
                         ];
                         // do something with the coords
-                        console.log("Selected result coords", latlng);
                      },
                      onSubmit: function handleSubmit(params) {
                         // Do something with the selected and then submitted value
-                        console.log("Submit with", params.state.query);
                      },
                   }
                ),
@@ -125,7 +120,7 @@ const UserLocation = (props) => {
       <div className='user-locatio'>
          {isEditing ? (
             <>
-               <div id='geoAutocomplete' onMouseLeave={handleMouseLeave}></div>
+               <div id='geoAutocomplete' onMouseLeave={handleMouseLeave} />
                {/* <form onSubmit={handleSubmit}>
                <input
                   className='userLocInput'
@@ -148,7 +143,7 @@ const UserLocation = (props) => {
                <i
                   onMouseEnter={handleMouseEnter}
                   className='fa-solid fa-location-dot px-2'
-                  style={{ fontSize: "15px" }}></i>
+                  style={{ fontSize: "15px" }} />
                {locationData && (
                   <div className='float-start' style={{ paddingTop: "3px" }}>
                      <div>

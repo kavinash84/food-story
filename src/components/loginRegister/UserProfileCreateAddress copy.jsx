@@ -1,11 +1,12 @@
 /** @format */
 
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import { useFormik } from "formik";
-import { UserAddressSchema } from "./schemas/userAddressValidation";
+import React, { useEffect, useState, useContext } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import { UserAddressSchema } from "./schemas/userAddressValidation";
 import { SomeContext } from "../../App";
 
 const initialValues = {
@@ -20,7 +21,6 @@ const initialValues = {
 };
 const UserProfileCreateAddress = (props) => {
    const { initialValues, setInitialValues } = useContext(SomeContext);
-   // console.log("create conterxt", initialValues);
 
    const [isLoading, setIsLoading] = useState(false);
    const [closeModal, setCloseModal] = useState(false);
@@ -35,7 +35,7 @@ const UserProfileCreateAddress = (props) => {
       touched,
       resetForm,
    } = useFormik({
-      initialValues: initialValues,
+      initialValues,
       validationSchema: UserAddressSchema,
       onSubmit: (values) => {
          console.log("values", values);
@@ -72,7 +72,6 @@ const UserProfileCreateAddress = (props) => {
          //    password: localStorage.getItem("user-password"),
          // };
 
-         console.log("payload", payload);
 
          // let result = await fetch(
          //    "https://beta.foodstories.store/rest/V1/customers",

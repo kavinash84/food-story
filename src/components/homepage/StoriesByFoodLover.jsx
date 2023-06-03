@@ -2,12 +2,13 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+
 import collage2 from "../../assets/collage2.png";
-import "../../../src/CollageImages.css";
+import "../../CollageImages.css";
 import Heading from "../commonComponents/Heading";
 
 const StoriesByFoodLover = (props) => {
-   var owl = $(document).ready(function () {
+   const owl = $(document).ready(() => {
       $(".screenshot_slider").owlCarousel({
          loop: true,
          responsiveClass: true,
@@ -32,20 +33,20 @@ const StoriesByFoodLover = (props) => {
       });
    });
 
-   /****************************/
+   /** ************************* */
 
-   jQuery(document.documentElement).keydown(function (event) {
+   jQuery(document.documentElement).keydown((event) => {
       // var owl = jQuery("#carousel");
 
       // handle cursor keys
       if (event.keyCode == 37) {
          // go left
          owl.trigger("prev.owl.carousel", [400]);
-         //owl.trigger('owl.prev');
+         // owl.trigger('owl.prev');
       } else if (event.keyCode == 39) {
          // go right
          owl.trigger("next.owl.carousel", [400]);
-         //owl.trigger('owl.next');
+         // owl.trigger('owl.next');
       }
    });
 

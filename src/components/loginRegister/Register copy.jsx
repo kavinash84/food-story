@@ -1,11 +1,14 @@
 /** @format */
 
-import React from "react";
 import { useFormik } from "formik";
+import React from "react";
+
 import { RegisterSchema } from "./schemas";
-import "../../../src/Register.css";
+import "../../Register.css";
 import headerLogo from "../../assets/nav/fs-logo-header.svg";
+
 import { AiFillCaretDown } from "react-icons/ai";
+
 const initialValues = {
    firstName: "",
    lastName: "",
@@ -24,10 +27,9 @@ const initialValues = {
 const Register = () => {
    const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
       useFormik({
-         initialValues: initialValues,
+         initialValues,
          validationSchema: RegisterSchema,
          onSubmit: (values) => {
-            console.log("values", values);
          },
       });
 
@@ -162,8 +164,8 @@ const Register = () => {
                            onChange={handleChange}
                            onBlur={handleBlur}
                            value={values.dob}
-                           onfocus="(this.type='date')"
-                           onblur="(this.value == '' ? this.type='text' : this.type='date')"
+                           onFocus="(this.type='date')"
+                           onBlur="(this.value == '' ? this.type='text' : this.type='date')"
                         />
                         {errors.dob && touched.dob ? (
                            <p className='form-errors'>{errors.dob}</p>
@@ -268,7 +270,7 @@ const Register = () => {
                               <option value='City'>City</option>
                            </select>
                            <span className='select-btn'>
-                              <i className='zmdi zmdi-chevron-down'></i>
+                              <i className='zmdi zmdi-chevron-down' />
                            </span>
                            {errors.place && touched.place ? (
                               <p className='form-errors2'>{errors.place}</p>
@@ -289,7 +291,7 @@ const Register = () => {
                            <option value='India'>India</option>
                         </select>
                         <span className='select-btn'>
-                           <i className='zmdi zmdi-chevron-down'></i>
+                           <i className='zmdi zmdi-chevron-down' />
                         </span>
                         {errors.country && touched.country ? (
                            <p className='form-errors2'>{errors.country}</p>
@@ -354,7 +356,7 @@ const Register = () => {
                               required=''
                            />
 
-                           <span className='checkmark'></span>
+                           <span className='checkmark' />
                         </label>
                         {errors.checkbox && touched.checkbox ? (
                            <p

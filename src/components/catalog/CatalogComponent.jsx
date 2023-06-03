@@ -1,14 +1,14 @@
 /** @format */
 
 import React from "react";
-import Navigation from "../homepage/Navigation";
-import ProductsItems from "../commonComponents/ProductsItems";
-import Footer from "../commonComponents/Footer";
-import PaginationComponent from "../commonComponents/PaginationComponent";
-import LeftRightColComponent from "../commonComponents/LeftRightColComponent";
 
-const CatalogComponent = () => {
-   return (
+import Footer from "../commonComponents/Footer";
+import LeftRightColComponent from "../commonComponents/LeftRightColComponent";
+import PaginationComponent from "../commonComponents/PaginationComponent";
+import ProductsItems from "../commonComponents/ProductsItems";
+import Navigation from "../homepage/Navigation";
+
+const CatalogComponent = () => (
       <div className='container-fluid px-0 catalogWrapper'>
          <Navigation navActiveClass='navActiveClass' type='catalog' />
          <div className='container'>
@@ -181,6 +181,5 @@ const CatalogComponent = () => {
          <Footer style={{ marginTop: "100px" }} />
       </div>
    );
-};
 
 export default CatalogComponent;

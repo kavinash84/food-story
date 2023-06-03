@@ -1,13 +1,17 @@
 /** @format */
 
-import React, { useState } from "react";
 import headerLogo from "../../assets/nav/fs-logo-header.svg";
+
 import { useFormik } from "formik";
+import React, { useState , useEffect } from "react";
+
 import { LoginSchema } from "./schemas/login";
+
 import { Link, useNavigate } from "react-router-dom";
-import "../../../src/Login.css";
-import { useEffect } from "react";
+
+import "../../Login.css";
 import ToastMessage from "../utilis/ToastMessage";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,13 +39,11 @@ const Login = (props) => {
    // }, []);
    const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
       useFormik({
-         initialValues: initialValues,
+         initialValues,
          validationSchema: LoginSchema,
          onSubmit: async (values) => {
-            console.log("values", values);
-            // setclassName = true;
             setIsLoading(true);
-            let result = await fetch(
+            const result = await fetch(
                "https://beta.foodstories.store/rest/V1/integration/customer/token",
 
                {
@@ -56,7 +58,6 @@ const Login = (props) => {
                .then((result) => {
                   setIsLoading(true),
                      result.json().then((res) => {
-                        // console.log("result status", result.status);
                         if (result.status === 200) {
                            setSuccessMsg(toast.success("Login Successfully"));
                            localStorage.setItem(
@@ -65,15 +66,12 @@ const Login = (props) => {
                            );
                            history("/");
                         } else {
-                           // console.log("result", result);
                            setError(toast.error(res.message));
                         }
-                        // console.log("then", res);
                         localStorage.setItem("token", res);
                      });
                })
                .catch((err) => {
-                  console.log("err", err);
                   setError(toast.error(result.message));
                });
 
@@ -149,7 +147,7 @@ const Login = (props) => {
                                  <label className='checkbox-wrap checkbox-primary'>
                                     Remember Me
                                     <input type='checkbox' />
-                                    <span className='checkmark'></span>
+                                    <span className='checkmark' />
                                  </label>
                               </div>
                               <div className='w-50 text-md-right'>

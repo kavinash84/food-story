@@ -1,10 +1,10 @@
 /** @format */
 
 import React from "react";
+
 import topArticlesImg from "../../assets/topArticles/topArticlesImg.png";
 
-const TopArticles = () => {
-   return (
+const TopArticles = () => (
       <div className='container my-5 topArticlesWrapper'>
          <div className='px-2'>
             <h2 className='d-inline'>stories you love</h2>
@@ -54,6 +54,5 @@ const TopArticles = () => {
          </div>
       </div>
    );
-};
 
 export default TopArticles;

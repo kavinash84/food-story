@@ -1,13 +1,13 @@
 /** @format */
 
 import React from "react";
+
 import collage1 from "../../assets/collage1.png";
 import collage2 from "../../assets/collage2.png";
 import collage3 from "../../assets/collage3.png";
 import Heading from "../commonComponents/Heading";
 
-const CollageImages = () => {
-   return (
+const CollageImages = () => (
       <div
          className='container-fluid CollageImages'
          style={{ background: "#FBF7F7" }}>
@@ -121,9 +121,8 @@ const CollageImages = () => {
                </div>
             </div>
          </div>
-         <p className='discoverAllTxt my-5'></p>
+         <p className='discoverAllTxt my-5' />
       </div>
    );
-};
 
 export default CollageImages;

@@ -3,7 +3,7 @@
 import axios from "axios";
 import * as Yup from "yup";
 
-let EMAIL_REGX =
+const EMAIL_REGX =
    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const phoneRegExp =
@@ -20,13 +20,13 @@ export const UserAddressSchema = Yup.object({
       .matches(/^[A-Za-z ]*$/, "Please enter valid name")
       .required("Please enter the last name "),
 
-   phone: Yup.string()
+   telephone: Yup.string()
       .required("Please enter the mobile number")
       .matches(phoneRegExp, "Phone number is not valid")
       .min(10, "too short")
       .max(10, "too long"),
 
-   pincode: Yup.string()
+   postcode: Yup.string()
       .required("Please enter the pincode")
       .matches(/^[0-9]+$/, "Must be only digits")
       .min(5, "Must be exactly 5 digits")
@@ -36,7 +36,7 @@ export const UserAddressSchema = Yup.object({
       .matches(EMAIL_REGX, "Invalid email address")
       .required("Please enter the email address"),
 
-   flat: Yup.string()
+   street: Yup.string()
       .min(10)
       .max(200)
       .matches(/[^A-Za-z0-9]+/, "Please enter address")

@@ -1,9 +1,10 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../../src/Login.css";
-import { useEffect } from "react";
+
+import "../../Login.css";
+
 
 function Login() {
    const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ function Login() {
       }
    }, []);
    async function loginBtn() {
-      let item = { username, password };
+      const item = { username, password };
 
       let result = await fetch(
          "https://dev.foodstories.store/rest/V1/integration/customer/token",

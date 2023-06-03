@@ -1,43 +1,39 @@
 /** @format */
 
+import Rating from "@mui/material/Rating";
 import React, { useEffect, useState } from "react";
-import Navigation from "../homepage/Navigation";
-import BreadCrumbs from "../homepage/BreadCrumbs";
+import { FiDroplet } from "react-icons/fi";
+import { TbSalad , TbMilk , TbEggs , TbCheese } from "react-icons/tb";
+
 import pdp1 from "../../assets/pdp1.png";
 import pdp2 from "../../assets/pdp2.png";
-import { TbSalad } from "react-icons/tb";
-import { TbMilk } from "react-icons/tb";
-import { TbEggs } from "react-icons/tb";
-import { TbCheese } from "react-icons/tb";
-import { FiDroplet } from "react-icons/fi";
 import product from "../../assets/product.png";
-import Heading from "../commonComponents/Heading";
-import GreatStories from "../homepage/GreatStories";
-import StoryBegin from "../homepage/StoryBegin";
 import Footer from "../commonComponents/Footer";
-import StoriesByFoodLover from "../homepage/StoriesByFoodLover";
-import ShopByCategory from "../homepage/ShopByCategory";
-import Rating from "@mui/material/Rating";
+import Heading from "../commonComponents/Heading";
 import ProductsItems from "../commonComponents/ProductsItems";
+import BreadCrumbs from "../homepage/BreadCrumbs";
+import GreatStories from "../homepage/GreatStories";
+import Navigation from "../homepage/Navigation";
+import ShopByCategory from "../homepage/ShopByCategory";
+import StoriesByFoodLover from "../homepage/StoriesByFoodLover";
+import StoryBegin from "../homepage/StoryBegin";
 
 const PdpComponent = () => {
    const [count, setCount] = useState(0); // useState returns a pair. 'count' is the current state. 'setCount' is a function we can use to update the state.
    const [value, setValue] = useState();
 
    function increment() {
-      //setCount(prevCount => prevCount+=1);
-      setCount(function (prevCount) {
-         return (prevCount += 1);
-      });
+      // setCount(prevCount => prevCount+=1);
+      setCount((prevCount) => (prevCount += 1));
    }
 
    function decrement() {
-      setCount(function (prevCount) {
+      setCount((prevCount) => {
          if (prevCount > 0) {
             return (prevCount -= 1);
-         } else {
+         } 
             return (prevCount = 0);
-         }
+         
       });
    }
    useEffect(() => {
@@ -86,7 +82,7 @@ const PdpComponent = () => {
                               </div>
                            </div>
                         </div>
-                        <div className='divider mt-5 mb-4'></div>
+                        <div className='divider mt-5 mb-4' />
                         <div className='row'>
                            <div className='col-4'>
                               <div className='ingredientsWrapper'>
@@ -96,7 +92,7 @@ const PdpComponent = () => {
                                     </h2>
 
                                     <div className='col-1 circleParent px-0'>
-                                       <span className='dot'></span>
+                                       <span className='dot' />
                                     </div>
                                     <div className='col-11 ps-0'>
                                        <ul className='list-group'>
@@ -108,7 +104,7 @@ const PdpComponent = () => {
                                  </div>
                                  <div className='row'>
                                     <div className='col-1 circleParent px-0'>
-                                       <span className='dot'></span>
+                                       <span className='dot' />
                                     </div>
                                     <div className='col-11 ps-0'>
                                        <ul className='list-group'>
@@ -120,7 +116,7 @@ const PdpComponent = () => {
                                  </div>
                                  <div className='row'>
                                     <div className='col-1 circleParent px-0'>
-                                       <span className='dot'></span>
+                                       <span className='dot' />
                                     </div>
                                     <div className='col-11 ps-0'>
                                        <ul className='list-group'>
@@ -132,7 +128,7 @@ const PdpComponent = () => {
                                  </div>
                                  <div className='row'>
                                     <div className='col-1 circleParent px-0'>
-                                       <span className='dot'></span>
+                                       <span className='dot' />
                                     </div>
                                     <div className='col-11 ps-0'>
                                        <ul className='list-group'>
@@ -144,7 +140,7 @@ const PdpComponent = () => {
                                  </div>
                                  <div className='row'>
                                     <div className='col-1 circleParent px-0'>
-                                       <span className='dot'></span>
+                                       <span className='dot' />
                                     </div>
                                     <div className='col-11 ps-0'>
                                        <ul className='list-group'>
@@ -208,20 +204,20 @@ const PdpComponent = () => {
                            <div className='content'>
                               <div className='stars'>
                                  <label
-                                    for='star-1'
-                                    className='star-1 fas fa-star'></label>
+                                    htmlFor='star-1'
+                                    className='star-1 fas fa-star' />
                                  <label
-                                    for='star-2'
-                                    className='star-2 fas fa-star'></label>
+                                    htmlFor='star-2'
+                                    className='star-2 fas fa-star' />
                                  <label
-                                    for='star-3'
-                                    className='star-3 fas fa-star'></label>
+                                    htmlFor='star-3'
+                                    className='star-3 fas fa-star' />
                                  <label
-                                    for='star-4'
-                                    className='star-4 fas fa-star'></label>
+                                    htmlFor='star-4'
+                                    className='star-4 fas fa-star' />
                                  <label
-                                    for='star-5'
-                                    className='star-5 fas fa-star'></label>
+                                    htmlFor='star-5'
+                                    className='star-5 fas fa-star' />
                                  <span className='mx-2 reviewsTxt'>
                                     (132 reviews)
                                  </span>
@@ -251,7 +247,7 @@ const PdpComponent = () => {
                         <span
                            className='heartCirle ms-2'
                            style={{ marginTop: "20px" }}>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                         <div className='form-check my-3 ms-3'>
                            <input
@@ -262,7 +258,7 @@ const PdpComponent = () => {
                            />
                            <label
                               className='form-check-label checkboxTxt'
-                              for='flexCheckDefault'>
+                              htmlFor='flexCheckDefault'>
                               Add a personalised greeting card by Bombay
                               Lettering Company to your order for INR 150.
                            </label>

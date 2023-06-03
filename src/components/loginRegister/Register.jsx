@@ -1,14 +1,17 @@
 /** @format */
 
-import React, { useState } from "react";
 import { useFormik } from "formik";
+import React, { useState } from "react";
+
 import { RegisterSchema } from "./schemas";
-import "../../../src/Register.css";
+import "../../Register.css";
 import headerLogo from "../../assets/nav/fs-logo-header.svg";
+
 import { AiFillCaretDown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const initialValues = {
    firstname: "",
    lastname: "",
@@ -36,10 +39,9 @@ const Register = () => {
    // }, []);
    const { values, errors, handleBlur, handleChange, handleSubmit, touched } =
       useFormik({
-         initialValues: initialValues,
+         initialValues,
          validationSchema: RegisterSchema,
          onSubmit: async (values) => {
-            console.log("values", values);
             setIsLoading(true);
             const payload = {
                customer: {
@@ -76,7 +78,6 @@ const Register = () => {
             ).catch((error) => {
                console.log("error", error.message);
             });
-            console.log("api response", JSON.stringify(result));
             if (result.status === 200) {
                setSuccessMsg(toast.success("Registration Successfully"));
                localStorage.setItem("register-info", JSON.stringify(result));

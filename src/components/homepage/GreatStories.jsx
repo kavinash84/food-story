@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
+
 import recipe1 from "../../assets/recipe1.png";
 import Heading from "../commonComponents/Heading";
 
-const GreatStories = (props) => {
-   return (
+const GreatStories = (props) => (
       <div
          className={`GreatStories container-fluid  ${
             props.className ?? "mt-5"
@@ -13,7 +13,7 @@ const GreatStories = (props) => {
          <div className={`px-2  ${props.className ?? "py-5"}`}>
             <Heading heading='Great stories deserve great recipes' />
          </div>
-         <div className='pinkBg'></div>
+         <div className='pinkBg' />
          <div className='container'>
             <div className='row row-cols-1 row-cols-md-3 g-4'>
                <div className='col'>
@@ -76,6 +76,5 @@ const GreatStories = (props) => {
          </div>
       </div>
    );
-};
 
 export default GreatStories;

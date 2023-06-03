@@ -1,21 +1,21 @@
 /** @format */
 
 import React from "react";
-import Navigation from "./Navigation";
-// import Slider from "./Slider";
-import ShopByCategory from "./ShopByCategory";
-import SelectionWeek from "./SelectionWeek";
-import CollageImages from "./CollageImages";
-import StoriesByFoodLover from "./StoriesByFoodLover";
-import GreatStories from "./GreatStories";
-import StoryBegin from "./StoryBegin";
-import Footer from "../commonComponents/Footer";
-import HeaderTopStrip from "./HeaderTopStrip";
-import heroBanner from "../../assets/heroBanner.png";
 import { BsSearch } from "react-icons/bs";
 
-const HomePage = () => {
-   return (
+import CollageImages from "./CollageImages";
+import GreatStories from "./GreatStories";
+import HeaderTopStrip from "./HeaderTopStrip";
+import Navigation from "./Navigation";
+// import Slider from "./Slider";
+import SelectionWeek from "./SelectionWeek";
+import ShopByCategory from "./ShopByCategory";
+import StoriesByFoodLover from "./StoriesByFoodLover";
+import StoryBegin from "./StoryBegin";
+import heroBanner from "../../assets/heroBanner.png";
+import Footer from "../commonComponents/Footer";
+
+const HomePage = () => (
       <div className='container-fluid p-0'>
          <div className='row'>
             <div>
@@ -34,17 +34,17 @@ const HomePage = () => {
                               data-bs-slide-to='0'
                               className='active'
                               aria-current='true'
-                              aria-label='Slide 1'></button>
+                              aria-label='Slide 1' />
                            <button
                               type='button'
                               data-bs-target='#carouselExampleDark'
                               data-bs-slide-to='1'
-                              aria-label='Slide 2'></button>
+                              aria-label='Slide 2' />
                            <button
                               type='button'
                               data-bs-target='#carouselExampleDark'
                               data-bs-slide-to='2'
-                              aria-label='Slide 3'></button>
+                              aria-label='Slide 3' />
                         </div>
                         <div className='carousel-inner'>
                            <div
@@ -122,7 +122,7 @@ const HomePage = () => {
                            data-bs-slide='prev'>
                            <span
                               className='carousel-control-prev-icon'
-                              aria-hidden='true'></span>
+                              aria-hidden='true' />
                            <span className='visually-hidden'>Previous</span>
                         </button>
                         <button
@@ -132,7 +132,7 @@ const HomePage = () => {
                            data-bs-slide='next'>
                            <span
                               className='carousel-control-next-icon'
-                              aria-hidden='true'></span>
+                              aria-hidden='true' />
                            <span className='visually-hidden'>Next</span>
                         </button>
                      </div>
@@ -176,6 +176,5 @@ const HomePage = () => {
          </div>
       </div>
    );
-};
 
 export default HomePage;

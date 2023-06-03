@@ -2,8 +2,7 @@
 
 import React from "react";
 
-const HeroBanner = (props) => {
-   return (
+const HeroBanner = (props) => (
       <div
          className={`p-5 text-center bg-image rounded-0 heroBannerBg ${props.className}`}>
          <div className='mask'>
@@ -22,6 +21,5 @@ const HeroBanner = (props) => {
          </div>
       </div>
    );
-};
 
 export default HeroBanner;

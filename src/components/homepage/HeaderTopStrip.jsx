@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 const HeaderTopStrip = (props) => {
-   let localStorageUser = localStorage.getItem(
+   const localStorageUser = localStorage.getItem(
       "user-name",
       JSON.stringify(props.userName)
    );

@@ -1,7 +1,7 @@
 /** @format */
 
-import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
+import React, { useState } from "react";
 
 const ProductsItems = (props) => {
    const [value, setValue] = useState();
@@ -39,7 +39,7 @@ const ProductsItems = (props) => {
                            ADD TO CART
                         </button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -73,7 +73,7 @@ const ProductsItems = (props) => {
                            ADD TO CART
                         </button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -107,7 +107,7 @@ const ProductsItems = (props) => {
                            ADD TO CART
                         </button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -141,7 +141,7 @@ const ProductsItems = (props) => {
                            ADD TO CART
                         </button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -176,7 +176,7 @@ const ProductsItems = (props) => {
                         </div>
                         <button className='btn atcBtn'>ADD TO CART</button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -208,7 +208,7 @@ const ProductsItems = (props) => {
                         </div>
                         <button className='btn atcBtn'>ADD TO CART</button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>
@@ -240,7 +240,7 @@ const ProductsItems = (props) => {
                         </div>
                         <button className='btn atcBtn'>ADD TO CART</button>
                         <span className='heartCirle ms-2'>
-                           <i class='fa-solid fa-heart heartHover'></i>
+                           <i className='fa-solid fa-heart heartHover' />
                         </span>
                      </div>
                   </div>

@@ -1,19 +1,18 @@
 /** @format */
 
 import React, { useEffect } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 import headerLogo from "../../assets/nav/fs-logo-header.png";
 import blackHeaderLogo from "../../assets/nav/fs-logoBlack-header.png";
-
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import { BiSearch } from "react-icons/bi";
 import UserLocation from "../utilis/UserLocation";
 
 const Navigation = (props) => {
    useEffect(() => {
-      let nav = document.querySelector(".navbar");
+      const nav = document.querySelector(".navbar");
       window.onscroll = function () {
          if (document.documentElement.scrollTop > 300) {
             nav.classList.add("header-scrolled");
@@ -24,8 +23,7 @@ const Navigation = (props) => {
    }, []);
 
    return (
-      <>
-         <nav
+      <nav
             className={`navbar navbar-expand-lg px-0 navBarWrapper ${props.className}`}>
             <div className='container-fluid  px-0'>
                <button
@@ -38,7 +36,7 @@ const Navigation = (props) => {
                   aria-expanded='false'
                   aria-label='Toggle navigation'>
                   {/* <span className='navbar-toggler-icon'></span> */}
-                  <i className='fa-solid fa-bars-staggered '></i>
+                  <i className='fa-solid fa-bars-staggered ' />
                </button>
                <div
                   className='collapse navbar-collapse px-0'
@@ -188,7 +186,6 @@ const Navigation = (props) => {
                </div>
             </div>
          </nav>
-      </>
    );
 };
 

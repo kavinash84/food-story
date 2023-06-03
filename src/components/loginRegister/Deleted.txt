@@ -1,139 +1,11 @@
-/** @format */
-
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-
-import { getMe } from "../../redux/slices/meSlice";
-
-const loaderStyle = {
-   position: "absolute",
-   left: "0",
-   top: "60%",
-   right: "0",
-   bottom: "0",
-   textAlign: "center",
-   margin: "0 auto",
-   zIndex: "999",
-};
-
-const UserInfo = () =>{
-
-   const dispatch = useDispatch();
-   const meDetail = useSelector(state=>state.me.allDetails);
-   const [profileData, setProfileData] = useState(meDetail);
-   const [error, setError] = useState("");
-   const [isLoading, setIsLoading] = useState(false);
-   const [getAddData, setGetAddData] = useState([]);
-   const [updateAddress, setUpdateAddress] = useState([]);
-
-   const [showUpdateBtn, setShowUpdateBtn] = useState(false);
-   const [inputBoxBorderNone, setInputBoxBorderNone] = useState(true);
-   const [diabledInput, setDiabledInput] = useState(true);
-   const [disabledEditProfileBtn, setDisabledEditProfileBtn] = useState(false);
-
-   const [successMsg, setSuccessMsg] = useState(false);
-
-   const profileEditHandler = () => {
-      setShowUpdateBtn(true);
-      setInputBoxBorderNone(false);
-      setDiabledInput(false);
-   };
-
-   
-   const handleChange = (e)=>{
-      setProfileData(prev=>{
-         const returnVal = {...prev,[e.target.name]:e.target.value};
-         return returnVal;
-
-      }
-         );
-      
-   };
-
-   const formik = useFormik({
-      initialValues:meDetail
-   });
-
-   async function editUpdateApi() {
-      setIsLoading(true);
-      const payload = {
-         customer: {
-            email: profileData.email,
-            firstname: profileData.firstname,
-            lastname: profileData.lastname,
-            gender: parseInt(profileData.gender),
-            dob: profileData.dob,
-            website_id: profileData.website_id,
-
-         },
-         password: localStorage.getItem("user-password"),
-      };
-      let result = await fetch(
-         "https://beta.foodstories.store/rest/default/V1/customers/me",
-
-         {
-            method: "PUT",
-            headers: {
-               "Content-Type": "application/json",
-               Authorization: `Bearer ${  localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(payload),
-         }
-      ).catch((error) => {
-         console.log("error", error.message);
-      });
-      if (result.status === 200) {
-         setSuccessMsg(toast.success("Updated Successfully"));
-      } else {
-         setError(toast.error(result.message));
-      }
-      result = await result.json();
-
-      setIsLoading(false);
-      setInputBoxBorderNone(true);
-      setDiabledInput(true);
-
-      // setError(toast.error(result.message));
-   }
-
-   useEffect(() => {
-   
-      setIsLoading(true);
-   dispatch(getMe()).then(({payload})=>{
-      setIsLoading(false);
-      if(payload?.id){
-         setProfileData(payload);
-         setDisabledEditProfileBtn(true);
-      }
-   });
-   }, []);
-  
-return(
-   <>
-   {isLoading && (
-            <div className='d-flex justify-content-center' style={loaderStyle}>
-               <div
-                  className='spinner-border spinner-border-lg text-success'
-                  style={{ width: "4rem", height: "4rem" }}
-                  role='status'>
-                  <span className='visually-hidden '>Loading...</span>
-               </div>
-            </div>
-         )}
-      <div>
-         <div className='row'>
-            <div className='tab-content' id='pills-tabContent'>
-               <div
-                  className='tab-pane fade show active'
-                  id='pills-home'
-                  role='tabpanel'
-                  aria-labelledby='pills-home-tab'>
-                  <div className='row'>
-                     <div className='col-lg-4 float-start'>
-                     <div
+<div
+                        className='tab-pane fade show active'
+                        id='pills-home'
+                        role='tabpanel'
+                        aria-labelledby='pills-home-tab'>
+                        <div className='row'>
+                           <div className='col-lg-4 float-start'>
+                              <div
                                  className='card mb-8'
                                  style={{ height: "457px" }}>
                                  <div className='card-body text-center'>
@@ -150,12 +22,12 @@ return(
 
                                     {disabledEditProfileBtn && (
                                        <h5 className='my-3'>
-                                          {`${profileData.firstname 
-                                          } ${ 
-                                          profileData.lastname}`
-                                             ? `${profileData.firstname 
-                                               } ${ 
-                                               profileData.lastname}`
+                                          {profileData.firstname +
+                                          " " +
+                                          profileData.lastname
+                                             ? profileData.firstname +
+                                               " " +
+                                               profileData.lastname
                                              : "NA"}
                                        </h5>
                                     )}
@@ -173,9 +45,9 @@ return(
                                     </div>
                                  </div>
                               </div>
-                     </div>
-                     <div className='col-lg-8 float-end'>
-                     <div className='card mb-4'>
+                           </div>
+                           <div className='col-lg-8 float-end'>
+                              <div className='card mb-4'>
                                  <div className='card-body'>
                                     <div className='row'>
                                        <div className='col-sm-3'>
@@ -187,10 +59,10 @@ return(
                                              onChange={handleChange}
                                              name="firstname"
                                              className={
-                                                ` mb-0 ${ 
-                                                inputBoxBorderNone
+                                                " mb-0 " +
+                                                (inputBoxBorderNone
                                                    ? "border-0"
-                                                   : "null"}`
+                                                   : "null")
                                              }
                                              value={
                                                 profileData.firstname
@@ -211,10 +83,10 @@ return(
                                              onChange={handleChange}
                                              name="lastname"
                                              className={
-                                                ` mb-0 ${ 
-                                                inputBoxBorderNone
+                                                " mb-0 " +
+                                                (inputBoxBorderNone
                                                    ? "border-0"
-                                                   : "null"}`
+                                                   : "null")
                                              }
                                              value={
                                                 profileData.lastname
@@ -235,10 +107,10 @@ return(
                                              onChange={handleChange}
                                              name="email"
                                              className={
-                                                ` mb-0 ${ 
-                                                inputBoxBorderNone
+                                                " mb-0 " +
+                                                (inputBoxBorderNone
                                                    ? "border-0"
-                                                   : "null"}`
+                                                   : "null")
                                              }
                                              value={
                                                 profileData.email
@@ -259,10 +131,10 @@ return(
                                              onChange={handleChange}
                                              name="dob"
                                              className={
-                                                ` mb-0 ${ 
-                                                inputBoxBorderNone
+                                                " mb-0 " +
+                                                (inputBoxBorderNone
                                                    ? "border-0"
-                                                   : "null"}`
+                                                   : "null")
                                              }
                                              value={
                                                 profileData.dob
@@ -367,15 +239,103 @@ return(
                                     )}
                                  </div>
                               </div>
+                           </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <ToastContainer />
-      </>
-   );
-};
+                     <div
+                        className='tab-pane fade'
+                        id='pills-profile'
+                        role='tabpanel'
+                        aria-labelledby='pills-profile-tab'>
+                        <div className='row'>
+                           <div className='col-sm-3'>
+                              <div className='card position-relative'>
+                                 <Link to='/createAdd'>
+                                    <button
+                                       className='card-body child mx-auto'
+                                       style={{
+                                          height: "167px",
+                                          background: "transparent",
+                                          border: "none",
+                                       }}>
+                                       Add Addresses +
+                                    </button>
+                                 </Link>
+                              </div>
+                           </div>
 
-export default UserInfo;
+                           {getAddData &&
+                              getAddData.map((getAddress) => {
+                                 return (
+                                    <div
+                                       className='col-sm-3 mb-4'
+                                       key={getAddress.id}>
+                                       <div className='card'>
+                                          <div className='card-body'>
+                                             <h5 className='card-title '>
+                                                {getAddress &&
+                                                   getAddress.firstname}
+                                                &nbsp;
+                                                {getAddress &&
+                                                   getAddress.lastname}
+                                             </h5>
+                                             <p className='card-text'>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.telephone}
+                                                </p>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.email}
+                                                </p>
+                                                <p className='text-muted mb-0'>
+                                                   {getAddress &&
+                                                      getAddress.street}
+                                                </p>
+                                             </p>
+                                             <Link to='/updateAdd'>
+                                                <button
+                                                   onClick={() =>
+                                                      setToLocalStorage(
+                                                         getAddress.firstname,
+                                                         getAddress.lastname,
+                                                         getAddress.telephone,
+                                                         getAddress.city,
+                                                         getAddress.street.toString(),
+                                                         getAddress.id,
+                                                         getAddress.region
+                                                            .region,
+                                                         getAddress.postcode,
+                                                         getAddress.email,
+                                                         getAddress.region
+                                                      )
+                                                   }
+                                                   type='button'
+                                                   className='btn btn-primary me-2'
+                                                   data-bs-toggle='modal'
+                                                   data-bs-target='#exampleModal'>
+                                                   Edit
+                                                </button>
+                                             </Link>
+                                             <button
+                                                onClick={() =>
+                                                   handleDelete(getAddress.id)
+                                                }
+                                                href='#'
+                                                className='btn btn-primary'>
+                                                Delete
+                                             </button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 );
+                              })}
+                        </div>
+                     </div>
+                     <div
+                        className='tab-pane fade'
+                        id='pills-contact'
+                        role='tabpanel'
+                        aria-labelledby='pills-contact-tab'>
+                        wishlist
+                     </div>

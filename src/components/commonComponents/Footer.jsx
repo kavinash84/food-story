@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
+
 import footerIcon from "../../assets/footerIcon.png";
 import headerLogo from "../../assets/nav/fs-logo-header.png";
 
-const Footer = (props) => {
-   return (
+const Footer = (props) => (
       <div style={{ background: "#f6ebec", ...props.style }}>
          <div className='subscribeWrapper container-fluid px-0'>
             <div className='container mx-auto'>
@@ -173,6 +173,5 @@ const Footer = (props) => {
          </div>
       </div>
    );
-};
 
 export default Footer;

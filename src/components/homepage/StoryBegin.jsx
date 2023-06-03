@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
+
 import storyBg from "../../assets/storyBg.png";
 import storyIcon from "../../assets/storyIcon.png";
 
-const StoryBegin = () => {
-   return (
+const StoryBegin = () => (
       <div className='StoryBegin container-fluid px-0'>
          <img src={storyBg} alt='0' className='img-fluid' />
          <div className='storyBeginTxtWrapper mx-auto'>
@@ -78,6 +78,5 @@ const StoryBegin = () => {
          </div>
       </div>
    );
-};
 
 export default StoryBegin;

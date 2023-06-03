@@ -1,7 +1,8 @@
 /** @format */
 
-import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
+import React, { useState } from "react";
+
 import catalogImg from "../../assets/catalogImg.png";
 
 const LeftRightColComponent = (props) => {
@@ -41,7 +42,7 @@ const LeftRightColComponent = (props) => {
                               ADD TO CART
                            </button>
                            <span className='heartCirle ms-2'>
-                              <i class='fa-solid fa-heart heartHover'></i>
+                              <i className='fa-solid fa-heart heartHover' />
                            </span>
                         </div>
                      </div>
@@ -75,7 +76,7 @@ const LeftRightColComponent = (props) => {
                               ADD TO CART
                            </button>
                            <span className='heartCirle ms-2'>
-                              <i class='fa-solid fa-heart heartHover'></i>
+                              <i className='fa-solid fa-heart heartHover' />
                            </span>
                         </div>
                      </div>
@@ -109,7 +110,7 @@ const LeftRightColComponent = (props) => {
                               ADD TO CART
                            </button>
                            <span className='heartCirle ms-2'>
-                              <i class='fa-solid fa-heart heartHover'></i>
+                              <i className='fa-solid fa-heart heartHover' />
                            </span>
                         </div>
                      </div>
@@ -143,7 +144,7 @@ const LeftRightColComponent = (props) => {
                               ADD TO CART
                            </button>
                            <span className='heartCirle ms-2'>
-                              <i class='fa-solid fa-heart heartHover'></i>
+                              <i className='fa-solid fa-heart heartHover' />
                            </span>
                         </div>
                      </div>

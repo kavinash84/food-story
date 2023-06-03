@@ -1,35 +1,34 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
+
+import juicesImg from "../../assets/juices.png";
+import product from "../../assets/product.png";
+import storiesImg1 from "../../assets/stories1.png";
+import storiesImg2 from "../../assets/stories2.png";
+import Footer from "../commonComponents/Footer";
+import Heading from "../commonComponents/Heading";
+import BreadCrumbs from "../homepage/BreadCrumbs";
+import HeroBanner from "../homepage/HeroBanner";
 import Navigation from "../homepage/Navigation";
 // import Slider from "./Slider";
 import StoriesByFoodLover from "../homepage/StoriesByFoodLover";
-import Footer from "../commonComponents/Footer";
-import HeroBanner from "../homepage/HeroBanner";
-import BreadCrumbs from "../homepage/BreadCrumbs";
-import storiesImg1 from "../../assets/stories1.png";
-import storiesImg2 from "../../assets/stories2.png";
-import Heading from "../commonComponents/Heading";
-import product from "../../assets/product.png";
-import juicesImg from "../../assets/juices.png";
 
 const Stories = (props) => {
    const [count, setCount] = useState(0); // useState returns a pair. 'count' is the current state. 'setCount' is a function we can use to update the state.
 
    function increment() {
-      //setCount(prevCount => prevCount+=1);
-      setCount(function (prevCount) {
-         return (prevCount += 1);
-      });
+      // setCount(prevCount => prevCount+=1);
+      setCount((prevCount) => (prevCount += 1));
    }
 
    function decrement() {
-      setCount(function (prevCount) {
+      setCount((prevCount) => {
          if (prevCount > 0) {
             return (prevCount -= 1);
-         } else {
+         } 
             return (prevCount = 0);
-         }
+         
       });
    }
    useEffect(() => {
@@ -136,7 +135,7 @@ const Stories = (props) => {
                      </div>
                   </div>
                </div>
-               <div className='w-100 bg-white whiteStrip'></div>
+               <div className='w-100 bg-white whiteStrip' />
             </div>
 
             <div
@@ -402,10 +401,10 @@ const Stories = (props) => {
                                           height='400'
                                           src='https://www.youtube.com/embed/v41-SNTCCOw'
                                           title='YouTube video player'
-                                          frameborder='0'
+                                          frameBorder='0'
                                           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                                          allowfullscreen></iframe>
-                                       <div className='card-body'></div>
+                                          allowfullscreen />
+                                       <div className='card-body' />
                                     </div>
                                  </div>
                               </div>
@@ -436,7 +435,7 @@ const Stories = (props) => {
                                           </div>
                                        </div>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -448,7 +447,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -460,7 +459,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -472,7 +471,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -484,7 +483,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -496,7 +495,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -508,7 +507,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -520,7 +519,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -533,7 +532,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>
@@ -545,7 +544,7 @@ const Stories = (props) => {
                                     </div>
                                     <div className='row'>
                                        <div className='col-1 circleParent px-0'>
-                                          <span className='dot'></span>
+                                          <span className='dot' />
                                        </div>
                                        <div className='col-11 ps-0'>
                                           <ul className='list-group'>

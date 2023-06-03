@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import Heading from "../commonComponents/Heading";
 import Rating from "@mui/material/Rating";
+
 import cheese from "../../assets/cheese.png";
 import humanImg from "../../assets/person_1.jpg";
 import humanImg2 from "../../assets/person_2.jpg";
+import Heading from "../commonComponents/Heading";
 
 const ShopByCategory = (props) => {
    const [value, setValue] = useState();
@@ -59,9 +60,9 @@ const ShopByCategory = (props) => {
                   items: props.items ?? 3,
                },
             }}
-            loop={true}
+            loop
             margin={1}
-            nav={true}
+            nav
             dots={false}
             // center={true}
             autoplay={false}

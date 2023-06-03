@@ -1,14 +1,15 @@
 /** @format */
 
-import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import { useFormik } from "formik";
-import { UserAddressSchema } from "./schemas/userAddressValidation";
+import {throttle,debounce} from 'lodash';
+import React, { useEffect, useState, useContext } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { SomeContext } from "../../App";
 import { toast } from "react-toastify";
-import {throttle,debounce} from 'lodash';
+
+import { UserAddressSchema } from "./schemas/userAddressValidation";
+import { SomeContext } from "../../App";
 import { debounceUtil } from "../utilis/helper";
 
 const loaderStyle = {
@@ -32,8 +33,8 @@ const initialValues = {
    email:"",
    region:{
       region:"",
-      regionCode:"",
-      regionId:""
+      region_code:"",
+      region_id:""
    }
    // id: "",
 };
@@ -55,7 +56,7 @@ const UserProfileCreateAddress = (props) => {
 
    const { values, errors, handleBlur, handleChange,handleSubmit,setFieldValue,setFieldError, touched } =
       useFormik({
-         initialValues: initialValues,
+         initialValues,
          validationSchema: UserAddressSchema,
          onSubmit:  async(values) => {
             setIsLoading(true);   
@@ -70,9 +71,9 @@ const UserProfileCreateAddress = (props) => {
                 city: values.city,
                 country_id: "IN",
                 region: {
-                  regionCode: values.region.regionCode,
+                  regionCode: values.region.region_code,
                   region: values.region.region,
-                  regionId:  values.region.regionId,
+                  regionId:  values.region.region_id,
                 },
               },
             };
@@ -113,7 +114,7 @@ const UserProfileCreateAddress = (props) => {
 
       const fetchStateInfo = async(state=initialValues.region.region)=>{
 
-         setIsLoading(true)
+         setIsLoading(true);
             const {data} = await axios({
               url: "https://beta.foodstories.store/rest/V1/customer/addresses/get-regions",
               method: "post",
@@ -124,28 +125,28 @@ const UserProfileCreateAddress = (props) => {
                 },
               },
             });
-            setIsLoading(false)
+            setIsLoading(false);
             isStateLoading=false;
             if(data[0]?.region_id){
-               setFieldValue("region.region",data[0]?.name)
-               setFieldValue("region.regionCode",data[0]?.code)
-               setFieldValue("region.regionId",data[0]?.region_id);
-               setIsValidState(true)
+               setFieldValue("region.region",data[0]?.name);
+               setFieldValue("region.region_code",data[0]?.code);
+               setFieldValue("region.region_id",data[0]?.region_id);
+               setIsValidState(true);
             }else{
                setFieldError("region.region","Please enter valid state");
                setIsValidState(false);
-               setStateErrorMessage("Please enter valid state")
+               setStateErrorMessage("Please enter valid state");
             }
          
-      }
+      };
 
       const handleStateChange = async(e)=>{
          setFieldValue(e.target.name,e.target.value);
          debounceUtil(()=>{
-            fetchStateInfo(e.target.value)
-         },800)
+            fetchStateInfo(e.target.value);
+         },800);
 
-      }
+      };
 
 
    return (
@@ -323,7 +324,6 @@ const UserProfileCreateAddress = (props) => {
                            autoComplete='off'
                            onChange={(e)=>{
                               handleStateChange(e);
-                              // handleChange(e)
                            }}
                            onBlur={handleBlur}
                            value={values.region.region}
@@ -341,10 +341,10 @@ const UserProfileCreateAddress = (props) => {
                         className='mx-auto'
                         style={{ width: "20%", overflow: "hidden" }}>
                         <Link
-                           to='/profile'
+                           to='/profile/address'
                            style={{ float: "left", display: "block" }}>
                            <button
-                              // type='reset'
+                              type='reset'
                               name='register'
                               className='btn btn-primary mx-auto my-3 d-block'>
                               Back
@@ -353,7 +353,7 @@ const UserProfileCreateAddress = (props) => {
                         <button
                            type='submit'
                            style={{ float: "left", display: "block" }}
-                           disabled={(isLoading||!isValidState)?true:false}
+                           disabled={!!((isLoading||!isValidState))}
                            name='register'
                            className='btn btn-primary mx-auto my-3 d-block ms-2'>
                            Save changes

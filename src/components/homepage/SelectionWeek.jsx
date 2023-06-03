@@ -1,12 +1,12 @@
 /** @format */
 
 import React from "react";
-import product from "../../assets/product.png";
+
 import longImg from "../../assets/longImg.png";
+import product from "../../assets/product.png";
 import Heading from "../commonComponents/Heading";
 
-const SelectionWeek = () => {
-   return (
+const SelectionWeek = () => (
       <div className='container selectionWeek'>
          <Heading heading='Selection of the week' />
 
@@ -33,7 +33,7 @@ const SelectionWeek = () => {
                                     ADD TO CART
                                  </button>
                                  <span className='heartCirle ms-2'>
-                                    <i className='fa-solid fa-heart heartHover'></i>
+                                    <i className='fa-solid fa-heart heartHover' />
                                  </span>
                               </div>
 
@@ -72,7 +72,7 @@ const SelectionWeek = () => {
                                     ADD TO CART
                                  </button>
                                  <span className='heartCirle ms-2'>
-                                    <i className='fa-solid fa-heart heartHover'></i>
+                                    <i className='fa-solid fa-heart heartHover' />
                                  </span>
                               </div>
                               {/* <div className='col-2 position-relative'>
@@ -110,7 +110,7 @@ const SelectionWeek = () => {
                                     ADD TO CART
                                  </button>
                                  <span className='heartCirle ms-2'>
-                                    <i className='fa-solid fa-heart heartHover'></i>
+                                    <i className='fa-solid fa-heart heartHover' />
                                  </span>
                               </div>
                               {/* <div className='col-2 position-relative'>
@@ -149,7 +149,7 @@ const SelectionWeek = () => {
                                     ADD TO CART
                                  </button>
                                  <span className='heartCirle ms-2'>
-                                    <i className='fa-solid fa-heart heartHover'></i>
+                                    <i className='fa-solid fa-heart heartHover' />
                                  </span>
                               </div>
                               {/* <div className='col-2 position-relative'>
@@ -190,6 +190,5 @@ const SelectionWeek = () => {
          <p className='discoverAllTxt my-5'>Discover all</p>
       </div>
    );
-};
 
 export default SelectionWeek;

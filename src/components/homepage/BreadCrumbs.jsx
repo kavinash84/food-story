@@ -2,8 +2,7 @@
 
 import React from "react";
 
-const BreadCrumbs = (props) => {
-   return (
+const BreadCrumbs = (props) => (
       <nav aria-label='breadcrumb' className='mt-3 px-0' style={props.style}>
          <ol className='breadcrumb'>
             <li className='breadcrumb-item'>
@@ -18,6 +17,5 @@ const BreadCrumbs = (props) => {
          </ol>
       </nav>
    );
-};
 
 export default BreadCrumbs;

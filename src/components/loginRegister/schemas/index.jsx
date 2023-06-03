@@ -1,10 +1,11 @@
 /** @format */
 
 import * as Yup from "yup";
+
 const phoneRegExp =
    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-let EMAIL_REGX =
+const EMAIL_REGX =
    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 export const RegisterSchema = Yup.object({
    firstname: Yup.string()
@@ -35,7 +36,7 @@ export const RegisterSchema = Yup.object({
 
    dob: Yup.date()
       .nullable()
-      .test("dob", "Age should be greater than 18 yrs", function (value, ctx) {
+      .test("dob", "Age should be greater than 18 yrs", (value, ctx) => {
          const dob = new Date(value);
          const validDate = new Date();
          const valid = validDate.getFullYear() - dob.getFullYear() >= 18;

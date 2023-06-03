@@ -1,7 +1,8 @@
 /** @format */
 
 import * as Yup from "yup";
-let EMAIL_REGX =
+
+const EMAIL_REGX =
    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 export const LoginSchema = Yup.object({
    username: Yup.string()
